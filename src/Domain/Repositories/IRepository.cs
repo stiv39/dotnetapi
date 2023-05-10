@@ -5,8 +5,8 @@ namespace Domain.Repositories
     {
         Task<TEntity?> GetById(int id);
         Task<IEnumerable<TEntity>> GetAll();
-        Task<bool> Add(TEntity entity);
-        Task<bool> Update(TEntity entity);
-        Task<bool> Delete(TEntity entity);
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
     }
 }

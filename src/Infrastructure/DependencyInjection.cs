@@ -1,4 +1,5 @@
-﻿using Infrastructure.Persistence;
+﻿using Domain.Interfaces;
+using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace Infrastructure
                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                    builder => builder.MigrationsAssembly(typeof(DataContext).Assembly.FullName)));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
