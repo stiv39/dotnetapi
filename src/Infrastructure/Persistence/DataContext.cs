@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Infrastructure.Persistence
 {
@@ -10,5 +11,12 @@ namespace Infrastructure.Persistence
         public virtual DbSet<Post> Posts { get; set; }
 
         public virtual DbSet<Todo> Todos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
