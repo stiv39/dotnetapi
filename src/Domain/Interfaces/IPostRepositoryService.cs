@@ -8,7 +8,7 @@ namespace Domain.Interfaces
 
         Task<PostDto?> GetById(int id);
 
-        bool Add(CreatePostDto entity);
+        int? Add(CreatePostDto entity);
 
         bool Update(PostDto entity);
 

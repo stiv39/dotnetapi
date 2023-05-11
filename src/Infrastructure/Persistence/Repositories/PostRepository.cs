@@ -35,5 +35,13 @@ namespace Infrastructure.Persistence.Repositories
         {
             _dataContext.Posts.Remove(entity);
         }
+
+        public int GetNewlyCreatedEntityId(Post entity)
+        {
+            var newEntityEntry = _dataContext.Entry(entity);
+            var newEntityId = newEntityEntry.Property(x => x.Id).CurrentValue;
+
+            return newEntityId;
+        }
     }
 }

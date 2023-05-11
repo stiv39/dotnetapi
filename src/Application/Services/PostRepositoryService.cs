@@ -41,19 +41,23 @@ namespace Application.Services
             return _mapper.Map<PostDto>(post);
         }
 
-        public bool Add(CreatePostDto entity)
+        public int? Add(CreatePostDto entity)
         {
             try
             {
-                _postRepository.Add(_mapper.Map<Post>(entity));
-                _unitOfWork.SaveChangesAsync();
-                return true;
+                var mapped = _mapper.Map<Post>(entity);
+                _postRepository.Add(mapped);
+                _unitOfWork.SaveChanges();
+
+                var id = _postRepository.GetNewlyCreatedEntityId(mapped);
+
+                return id;
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
-            }     
+                return null;
+            }
         }
 
         public bool Update(PostDto entity)

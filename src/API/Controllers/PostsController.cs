@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
-    public class PostsController: ControllerBase
+    public class PostsController : ControllerBase
     {
         private readonly IPostRepositoryService _postRepositoryService;
 
@@ -32,18 +32,19 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePost([FromBody] CreatePostDto dto) 
+        public ActionResult CreatePost([FromBody] CreatePostDto dto)
         {
-            _postRepositoryService.Add(dto);
-            return Ok();
+            var id = _postRepositoryService.Add(dto);
+            if (id == null) { return BadRequest("Failed to create"); }
+            return Ok(id);
         }
 
         [HttpPut]
-        public ActionResult UpdatePost(PostDto dto) 
-        { 
+        public ActionResult UpdatePost(PostDto dto)
+        {
             var result = _postRepositoryService.Update(dto);
 
-            if(!result)
+            if (!result)
             {
                 return NotFound();
             }

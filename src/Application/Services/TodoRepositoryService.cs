@@ -3,6 +3,7 @@ using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Services
@@ -41,18 +42,22 @@ namespace Application.Services
             return _mapper.Map<TodoDto>(todo);
         }
 
-        public bool Add(CreateTodoDto entity)
+        public int? Add(CreateTodoDto entity)
         {
             try
             {
-                _todoRepository.Add(_mapper.Map<Todo>(entity));
-                _unitOfWork.SaveChangesAsync();
-                return true;
+                var mapped = _mapper.Map<Todo>(entity);
+                _todoRepository.Add(mapped);
+                _unitOfWork.SaveChanges();
+
+                var id = _todoRepository.GetNewlyCreatedEntityId(mapped);
+
+                return id;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return false;
+                return null;
             }
         }
 

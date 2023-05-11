@@ -13,5 +13,7 @@ namespace Domain.Repositories
         void Update(Todo entity);
 
         void Delete(Todo entity);
+
+        int GetNewlyCreatedEntityId(Todo entity);
     }
 }

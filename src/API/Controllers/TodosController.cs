@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoDto>> GetTodoById(int id)
+        public async Task<ActionResult<TodoDto>> GetTodoById([FromQuery] int id)
         {
             var todo = await _todoRepositoryService.GetById(id);
 
@@ -34,12 +34,15 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult CreateTodo([FromBody] CreateTodoDto dto)
         {
-            _todoRepositoryService.Add(dto);
-            return Ok();
+            var id = _todoRepositoryService.Add(dto);
+
+            if(id == null) { return BadRequest("Failed to create"); }
+
+            return Ok(id);
         }
 
         [HttpPut]
-        public ActionResult UpdateTodo(TodoDto dto)
+        public ActionResult UpdateTodo([FromBody] TodoDto dto)
         {
             var result = _todoRepositoryService.Update(dto);
 
@@ -52,7 +55,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteTodo(int id)
+        public ActionResult DeleteTodo([FromQuery] int id)
         {
             var result = _todoRepositoryService.Delete(id);
 

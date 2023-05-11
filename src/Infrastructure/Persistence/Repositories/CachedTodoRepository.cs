@@ -45,6 +45,11 @@ namespace Infrastructure.Persistence.Repositories
                 });
         }
 
+        public int GetNewlyCreatedEntityId(Todo entity)
+        {
+           return _decorated.GetNewlyCreatedEntityId(entity);
+        }
+
         public void Update(Todo entity)
         {
             _decorated.Update(entity);

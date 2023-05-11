@@ -8,7 +8,7 @@ namespace Domain.Interfaces
 
         Task<TodoDto?> GetById(int id);
 
-        bool Add(CreateTodoDto entity);
+        int? Add(CreateTodoDto entity);
 
         bool Update(TodoDto entity);
 
