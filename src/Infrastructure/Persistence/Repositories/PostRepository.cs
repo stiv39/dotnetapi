@@ -4,13 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class PostRepository : Repository<Post>, IPostRepository
+    public class PostRepository : IPostRepository
     {
-        public PostRepository(DbContext context) : base(context) { }
+        private readonly DataContext _dataContext;
 
-        public DbContext GetContext
+        public PostRepository(DataContext dataContext) =>
+            _dataContext = dataContext;
+
+        public async Task<IEnumerable<Post>> GetAll()
         {
-            get { return Context; }
+            return await _dataContext.Posts.ToListAsync();
+        }
+
+        public async Task<Post?> GetById(int id)
+        {
+            return await _dataContext.Posts.FindAsync(id);
+        }
+
+        public void Add(Post entity)
+        {
+            _dataContext.Posts.Add(entity);
+        }
+
+        public void Update(Post entity)
+        {
+            _dataContext.Posts.Update(entity);
+        }
+
+        public void Delete(Post entity)
+        {
+            _dataContext.Posts.Remove(entity);
         }
     }
 }

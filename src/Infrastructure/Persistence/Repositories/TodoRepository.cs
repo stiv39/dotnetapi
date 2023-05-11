@@ -4,13 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class TodoRepository : Repository<Todo>, ITodoRepository
+    public class TodoRepository : ITodoRepository
     {
-        public TodoRepository(DbContext context) : base(context) { }
+        private readonly DataContext _dataContext;
 
-        public DbContext GetContext
+        public TodoRepository(DataContext dataContext) =>
+            _dataContext = dataContext;
+
+        public async Task<IEnumerable<Todo>> GetAll()
         {
-            get { return Context; }
+            return await _dataContext.Todos.ToListAsync();
+        }
+
+        public async Task<Todo?> GetById(int id)
+        {
+            return await _dataContext.Todos.FindAsync(id);
+        }
+
+        public void Add(Todo entity)
+        {
+            _dataContext.Todos.Add(entity);
+        }
+
+        public void Update(Todo entity)
+        {
+            _dataContext.Todos.Update(entity);
+        }
+
+        public void Delete(Todo entity)
+        {
+            _dataContext.Todos.Remove(entity);
         }
     }
 }

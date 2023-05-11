@@ -1,31 +1,14 @@
 ﻿using Domain.Interfaces;
-using Domain.Repositories;
-using Infrastructure.Persistence.Repositories;
 
 namespace Infrastructure.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _context;
+        private readonly DataContext _dbContext;
 
-        public UnitOfWork(DataContext context)
-        {
-            _context = context;
-            Posts = new PostRepository(_context);
-            Todos = new TodoRepository(_context);
-        }
+        public UnitOfWork(DataContext dbContext) => _dbContext = dbContext;
 
-        public IPostRepository Posts { get; private set; }
-        public ITodoRepository Todos { get; private set; }
-
-        public async Task<int> CompleteAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+        public Task SaveChangesAsync() =>
+            _dbContext.SaveChangesAsync();
     }
 }

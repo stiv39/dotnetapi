@@ -1,11 +1,8 @@
-﻿using Domain.Repositories;
-
+﻿
 namespace Domain.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        IPostRepository Posts { get; }
-        ITodoRepository Todos { get; }
-        Task<int> CompleteAsync();
+        Task SaveChangesAsync();
     }
 }
