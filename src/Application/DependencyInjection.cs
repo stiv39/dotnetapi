@@ -9,8 +9,10 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddLogging();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IPostRepositoryService, PostRepositoryService>();
+            services.AddScoped<ITodoRepositoryService, TodoRepositoryService>();
 
             return services;
         }

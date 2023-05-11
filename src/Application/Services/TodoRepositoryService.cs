@@ -18,7 +18,7 @@ namespace Application.Services
             ITodoRepository todoRepository,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            ILogger logger)
+            ILogger<TodoRepositoryService> logger)
         {
             _todoRepository = todoRepository;
             _mapper = mapper;

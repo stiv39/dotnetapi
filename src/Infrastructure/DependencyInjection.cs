@@ -22,8 +22,13 @@ namespace Infrastructure
             services.AddScoped<IPostRepository, PostRepository>();
             // Scrutor
             services.Decorate<IPostRepository, CachedPostRepository>();
+
+            services.AddScoped<ITodoRepository, TodoRepository>();
+            services.Decorate<ITodoRepository, CachedTodoRepository>();
+
             services.AddMemoryCache();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
     }

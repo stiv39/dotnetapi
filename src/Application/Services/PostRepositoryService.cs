@@ -18,7 +18,7 @@ namespace Application.Services
             IPostRepository postRepository, 
             IMapper mapper, 
             IUnitOfWork unitOfWork,
-            ILogger logger)
+            ILogger<PostRepositoryService> logger)
         {
             _postRepository = postRepository;
             _mapper = mapper;
