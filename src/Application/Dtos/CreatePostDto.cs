@@ -1,5 +1,5 @@
 ﻿
-namespace Domain.Dtos
+namespace Application.Dtos
 {
     public class CreatePostDto
     {

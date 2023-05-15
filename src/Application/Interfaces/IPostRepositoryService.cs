@@ -1,6 +1,6 @@
-﻿using Domain.Dtos;
+﻿using Application.Dtos;
 
-namespace Domain.Interfaces
+namespace Application.Interfaces
 {
     public interface IPostRepositoryService
     {
@@ -12,6 +12,6 @@ namespace Domain.Interfaces
 
         bool Update(PostDto entity);
 
-        bool Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

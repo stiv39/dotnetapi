@@ -1,5 +1,5 @@
-﻿using Domain.Dtos;
-using Domain.Interfaces;
+﻿using Application.Dtos;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -53,9 +53,9 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeletePost(int id)
+        public async Task<ActionResult> DeletePost(int id)
         {
-            var result = _postRepositoryService.Delete(id);
+            var result = await _postRepositoryService.Delete(id);
 
             if (!result)
             {

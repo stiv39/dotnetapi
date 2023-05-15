@@ -1,6 +1,6 @@
 ﻿using Application.Mapping;
 using Application.Services;
-using Domain.Interfaces;
+using Application.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application

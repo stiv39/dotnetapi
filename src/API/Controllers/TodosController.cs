@@ -1,5 +1,5 @@
-﻿using Domain.Dtos;
-using Domain.Interfaces;
+﻿using Application.Dtos;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -55,9 +55,9 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteTodo([FromQuery] int id)
+        public async Task<ActionResult> DeleteTodo([FromQuery] int id)
         {
-            var result = _todoRepositoryService.Delete(id);
+            var result = await _todoRepositoryService.Delete(id);
 
             if (!result)
             {

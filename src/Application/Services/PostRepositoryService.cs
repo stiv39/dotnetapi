@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Domain.Dtos;
+using Application.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using Application.Interfaces;
 
 namespace Application.Services
 {
@@ -75,15 +76,15 @@ namespace Application.Services
             }          
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                var post = _postRepository.GetById(id);
+                var post = await _postRepository.GetById(id);
                 if (post == null) { return false; }
 
                 _postRepository.Delete(_mapper.Map<Post>(post));
-                _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch(Exception ex)

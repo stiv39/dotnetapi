@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using Domain.Dtos;
+using Application.Dtos;
 using Domain.Entities;
-using Domain.Interfaces;
+using Application.Interfaces;
 using Domain.Repositories;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -76,15 +77,15 @@ namespace Application.Services
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
-                var todo = _todoRepository.GetById(id);
+                var todo = await _todoRepository.GetById(id);
                 if (todo == null) { return false; }
 
-                _todoRepository.Delete(_mapper.Map<Todo>(todo));
-                _unitOfWork.SaveChangesAsync();
+                _todoRepository.Delete(todo);
+                await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
